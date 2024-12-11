@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Listing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles/car/styles.css">
+</head>
+<nav class="nav-bar">
+    <ul>
+        <li class="logo__">Car Rental</li>
+        <li><a href="#book_now">Hello</a></li>
+    </ul>
+</nav>
+<body>
+    
+    <!-- <h2 style="text-align: center;">Mercedes-AMG</h2> -->
+    <div class="screen">
+        <p class="____Head">
+            <span><%= car.year %> <%= car.brand %> <%= car.name %> For Sale</span>
+            <strong>R <%= car.price_per_day %>/ Day</strong>
+        </p>
+
+        <div class="container">
+            <div class="car-info">
+                <div class="image-gallery">
+                    <img src="<%= imageUrls[0] %>" alt="<%= car.model %>" id="main-image" class="main-image">
+                    <div class="thumbnails">
+                        <% imageUrls.forEach((url, index) => { %>
+                            <img 
+                                src="<%= url %>" 
+                                alt="Thumbnail <%= index + 1 %>" 
+                                class="thumbnail">
+                        <% }); %>
+                    </div>
+                </div>
+                <div class="car-details">
+                    <p>
+                        <i class="fa-solid fa-gas-pump"></i>
+                        <span><%= car.fuel_type %></span>
+                    </p>
+                    <p>
+                        <i class="fa-solid fa-gauge-high"></i>
+                        <span><%= car.mileage %> km</span>
+                    </p>
+                    <p>
+                        <i class="fa-solid fa-user-group"></i>
+                        <span><%= car.seats %> Pasengers</span>
+                    </p>
+                    <p>
+                        <i class="fa-solid fa-microchip"></i>
+                        <span><%= car.transmission %></span>
+                    </p>
+                </div>
+                <div class="car-description">
+                    <p class="heading">Car description</p>
+                    <p>
+                        <%= car.description %>
+                    </p>
+                </div>
+                <div class="car-stats">
+                    <h3>Car Specifications</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Make</td>
+                                <td><%= car.brand %></td>
+                            </tr>
+                            <tr>
+                                <td>Model</td>
+                                <td><%= car.name %></td>
+                            </tr>
+                            <tr>
+                                <td>Year</td>
+                                <td><%= car.year %></td>
+                            </tr>
+                            <tr>
+                                <td>Mileage</td>
+                                <td><%= car.mileage %> km</td>
+                            </tr>
+                            <tr>
+                                <td>Fuel Type</td>
+                                <td><%= car.fuel_type %></td>
+                            </tr>
+                            <tr>
+                                <td>Transmission</td>
+                                <td><%= car.transmission %></td>
+                            </tr>
+                            <tr>
+                                <td>Engine</td>
+                                <td>Handcrafted AMG V8 Biturbo</td>
+                            </tr>
+                            <tr>
+                                <td>Color</td>
+                                <td>Green</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="finance-calculator">
+                    <h3>Car Finance Calculator</h3>
+                    <p>Calculate your estimated monthly repayment as well as total interest based on the vehicle retail price.</p>
+                    
+                    <form id="calculator-form">
+                        <div class="input-group">
+                            <label for="retail-price">Retail Price</label>
+                            <div class="input-box">
+                                <span>R</span>
+                                <input type="number" id="retail-price" placeholder="3599000" required>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="deposit">Deposit</label>
+                            <div class="input-box">
+                                <span>R</span>
+                                <input type="number" id="deposit" placeholder="e.g. R 20000">
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="trade-in">Trade-in Value</label>
+                            <div class="input-box">
+                                <span>R</span>
+                                <input type="number" id="trade-in" placeholder="0">
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="residual">Residual/Balloon</label>
+                            <div class="input-box">
+                                <input type="number" id="residual" placeholder="0">
+                                <span>%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="repayment-period">Repayment Period (Months)</label>
+                            <select id="repayment-period">
+                                <option value="12">12</option>
+                                <option value="24">24</option>
+                                <option value="36">36</option>
+                                <option value="48">48</option>
+                                <option value="60">60</option>
+                                <option value="72" selected>72</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="interest-rate">Estimated Interest Rate</label>
+                            <div class="input-box">
+                                <input type="number" id="interest-rate" placeholder="13.25">
+                                <span>%</span>
+                            </div>
+                        </div>
+                        
+                        <button type="button" id="reset-calculator">Reset Calculator</button>
+                    </form>
+                
+                    <div class="results">
+                        <h4>Monthly Repayment</h4>
+                        <p id="monthly-repayment">R -</p>
+                        <h4>Total Interest</h4>
+                        <p id="total-interest">R -</p>
+                        <h4>Total est. Repayment</h4>
+                        <p id="total-repayment">R -</p>
+                    </div>
+                    <p>
+                        Disclaimer: While we make every attempt to give you the best possible tools and information, AutoTrader SA, 
+                        its agents, employees, and accredited financiers will accept no responsibility for any loss or miscalculations 
+                        that may arise. All calculations made on this calculator are to be used as guidelines only.
+                    </p>
+                </div>
+            </div>
+    
+            <div >
+                
+                <form action="/booking/book/<%= car.id %>" method="POST"id="contact-form">
+                    <p class="rental_heading">
+                        Rent your car now!
+                    </p>
+                    <!-- <label for="name">Name *</label> -->
+                    <input type="text" id="userName" name="userName" value="<%= user.name %>" readonly>
+    
+                    <!-- <label for="userSurname">Last Name</label> -->
+                    <input type="text" id="userSurname" name="userSurname" value="<%= user.name %>" readonly>
+            
+                    <!-- Car Details -->
+                    <!-- <label for="carName">Car Name</label> -->
+                    <input type="text" id="carName" name="carName" value="<%= car.name %>" readonly>
+            
+                    <label for="rentalDate">Rental Date</label>
+                    <input type="date" id="rentalDate" name="rentalDate" required>
+            
+                    <label for="returnDate">Return Date</label>
+                    <input type="date" id="returnDate" name="returnDate" required>
+            
+                    <label for="totalCost">Total Cost</label>
+                    <input type="text" id="totalCost" name="totalCost" readonly>
+            
+                    <!-- Hidden pricePerDay -->
+                    <input type="hidden" id="pricePerDay" name="pricePerDay" value="<%= car.price_per_day %>">
+            
+                    <!-- <label for="message">Message *</label> -->
+                    <P>By continuing I understand and agree with AutoTrader’s <a href="">Terms & Conditions and Privacy Policy</a>.</P>
+                    <button type="submit">Book Now</button>
+                </form>
+
+                <div class="dealer-info">
+                    <img src="https://loodibee.com/wp-content/uploads/Spotify-Logo.png" alt="Dealer Logo" class="dealer-logo">
+                    <h3>Pharoah Auto Investment</h3>
+                    <div class="dealer-rating">
+                        <span class="stars">
+                            ★★★☆☆
+                        </span>
+                        <p>2.7 out of 5 (<a href="#">35 reviews</a>)</p>
+                    </div>
+                
+                    <h4>More <%= car.brand %> cars you might like</h4>
+                    <div class="car-listings">
+                        <div class="listing">
+                            <img src="https://www.bmw.co.za/content/bmw/marketZA/bmw_co_za/en_ZA/all-models/i-series/i7/2022/bmw-i7-series-sedan-highlights/jcr:content/par/multicontent_885774560/tabs/multicontenttab/items/smallteaser/image.transform/smallteaser/image.1648657280736.jpg" alt="Car 1">
+                            <div class="listing-info">
+                                <p class="price">R 5 999 000</p>
+                                <p class="model">Mercedes-AMG<br>G-Class</p>
+                            </div>
+                        </div>
+                
+                        <div class="listing">
+                            <img src="https://www.bmw.co.za/content/bmw/marketZA/bmw_co_za/en_ZA/all-models/i-series/i7/2022/bmw-i7-series-sedan-highlights/jcr:content/par/multicontent_885774560/tabs/multicontenttab/items/smallteaser/image.transform/smallteaser/image.1648657280736.jpg" alt="Car 2">
+                            <div class="listing-info">
+                                <p class="price">R 5 699 000</p>
+                                <p class="model">Mercedes-AMG<br>G-Class</p>
+                            </div>
+                        </div>
+                
+                        <div class="listing">
+                            <img src="https://www.bmw.co.za/content/bmw/marketZA/bmw_co_za/en_ZA/all-models/i-series/i7/2022/bmw-i7-series-sedan-highlights/jcr:content/par/multicontent_885774560/tabs/multicontenttab/items/smallteaser/image.transform/smallteaser/image.1648657280736.jpg" alt="Car 3">
+                            <div class="listing-info">
+                                <p class="price">R 5 499 000</p>
+                                <p class="model">Mercedes-AMG<br>G-Class</p>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <a href="#" class="view-stock">View all stock</a>
+                </div>
+
+                
+                
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainImage = document.getElementById('main-image');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+
+            thumbnails.forEach((thumbnail) => {
+                thumbnail.addEventListener('click', () => {
+                    mainImage.src = thumbnail.src;
+
+                    thumbnails.forEach((thumb) => thumb.style.borderColor = 'transparent');
+                    thumbnail.style.borderColor = '#007bff';
+                });
+            });
+        });
+    </script>
+    <script>
+        // Pass the value from EJS to JavaScript by outputting it as a valid JavaScript value
+        const pricePerDay = <%= car.price_per_day %>; // Make sure price_per_day is a valid number in the database
+
+        function calculateTotalCost() {
+            const rentalDate = new Date(document.getElementById('rentalDate').value);
+            const returnDate = new Date(document.getElementById('returnDate').value);
+
+            if (rentalDate && returnDate && returnDate > rentalDate) {
+                const rentalDays = Math.ceil((returnDate - rentalDate) / (1000 * 60 * 60 * 24));
+                const totalCost = rentalDays * pricePerDay;
+
+                document.getElementById('totalCost').value = totalCost.toFixed(2);
+            } else {
+                document.getElementById('totalCost').value = 0;
+            }
+        }
+
+        // Add event listeners for rental and return date inputs to update total cost
+        document.getElementById('rentalDate').addEventListener('change', calculateTotalCost);
+        document.getElementById('returnDate').addEventListener('change', calculateTotalCost);
+    </script>
+    <script>
+        document.getElementById('calculator-form').addEventListener('input', calculateFinance);
+
+        document.getElementById('reset-calculator').addEventListener('click', function () {
+            document.getElementById('calculator-form').reset();
+            document.getElementById('monthly-repayment').textContent = 'R -';
+            document.getElementById('total-interest').textContent = 'R -';
+            document.getElementById('total-repayment').textContent = 'R -';
+        });
+
+        function calculateFinance() {
+            const retailPrice = parseFloat(document.getElementById('retail-price').value) || 0;
+            const deposit = parseFloat(document.getElementById('deposit').value) || 0;
+            const tradeIn = parseFloat(document.getElementById('trade-in').value) || 0;
+            const residual = parseFloat(document.getElementById('residual').value) || 0;
+            const repaymentPeriod = parseFloat(document.getElementById('repayment-period').value) || 72;
+            const interestRate = parseFloat(document.getElementById('interest-rate').value) || 13.25;
+
+            // Calculate loan amount
+            const loanAmount = retailPrice - deposit - tradeIn;
+            const balloonPayment = (residual / 100) * retailPrice;
+
+            // Calculate monthly interest rate
+            const monthlyRate = interestRate / 100 / 12;
+
+            // Calculate monthly repayment (excluding balloon)
+            const monthlyRepayment = (loanAmount - balloonPayment) * monthlyRate / (1 - Math.pow(1 + monthlyRate, -repaymentPeriod));
+
+            // Calculate total repayment and total interest
+            const totalRepayment = monthlyRepayment * repaymentPeriod + balloonPayment;
+            const totalInterest = totalRepayment - loanAmount;
+
+            // Display results
+            document.getElementById('monthly-repayment').textContent = `R ${monthlyRepayment.toFixed(2)}`;
+            document.getElementById('total-interest').textContent = `R ${totalInterest.toFixed(2)}`;
+            document.getElementById('total-repayment').textContent = `R ${totalRepayment.toFixed(2)}`;
+        }
+
+    </script>
+</body>
+</html>

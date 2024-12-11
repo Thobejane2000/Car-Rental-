@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Admin - Manage Cars</title>
+</head>
+<body>
+    <header>
+        <h1>Admin Dashboard - Cars</h1>
+        <a href="/auth/logout">Logout</a>
+    </header>
+
+    <h2>All Cars</h2>
+    <table>
+        <tr>
+            <th>Model</th>
+            <th>Brand</th>
+            <th>Price per Day</th>
+            <th>Actions</th>
+        </tr>
+        <% cars.forEach(car => { %>
+            <tr>
+                <td><%= car.model %></td>
+                <td><%= car.brand %></td>
+                <td>R <%= car.price_per_day %></td>
+                <td>
+                    <!-- <form action="/admin/edit-car/<%= car.id %>" method="POST">
+                        <button>Edit</button>
+                    </form> -->
+                    <form action="/admin/delete-car/<%= car.id %>" method="POST">
+                        <button>Delete</button>
+                    </form>
+                </td>
+            </tr>
+        <% }); %>
+    </table>
+
+    <h2>Add New Car</h2>
+    <form action="/admin/add-car" method="POST" enctype="multipart/form-data">
+        <input 
+            type="file" 
+            id="images" 
+            name="images" 
+            accept="image/*" 
+            multiple 
+            required
+        >
+        <label for="brand">Car Manufacturer</label>
+        <select id="brand" name="brand" required>
+            <option value="">Select Manufacturer</option>
+            <option value="Toyota">Toyota</option>
+            <option value="Ford">Ford</option>
+            <option value="BMW">BMW</option>
+            <option value="Honda">Honda</option>
+            <option value="Mercedes">Mercedes</option>
+            <!-- Add more options as needed -->
+        </select>
+    
+        <label for="model">Car Model</label>
+        <input 
+            type="text" 
+            id="model" 
+            name="model" 
+            placeholder="Enter car model (e.g., Corolla)" 
+            required
+        >
+    
+        <label for="year">Year</label>
+        <input 
+            type="number" 
+            id="year" 
+            name="year" 
+            placeholder="Enter manufacturing year (e.g., 2022)" 
+            required
+        >
+    
+        <label for="name">Car Name</label>
+        <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            placeholder="Enter car name (e.g., Corolla LE)" 
+            required
+        >
+    
+        <label for="type">Body Type</label>
+        <select id="type" name="type" required>
+            <option value="">Select Body Type</option>
+            <option value="Sedan">Sedan</option>
+            <option value="SUV">SUV</option>
+            <option value="Convertible">Convertible</option>
+            <option value="Hatchback">Hatchback</option>
+            <option value="Truck">Truck</option>
+            <option value="Coupe">Coupe</option>
+        </select>
+    
+        <label for="transmission">Transmission</label>
+        <select id="transmission" name="transmission" required>
+            <option value="">Select Transmission</option>
+            <option value="Automatic">Automatic</option>
+            <option value="Manual">Manual</option>
+        </select>
+    
+        <label for="fuel_type">Fuel Type</label>
+        <select id="fuel_type" name="fuel_type" required>
+            <option value="">Select Fuel Type</option>
+            <option value="Petrol">Petrol</option>
+            <option value="Diesel">Diesel</option>
+            <option value="Electric">Electric</option>
+            <option value="Hybrid">Hybrid</option>
+        </select>
+    
+        <label for="seating_capacity">Seating Capacity</label>
+        <input 
+            type="number" 
+            id="seating_capacity" 
+            name="seating_capacity" 
+            placeholder="Enter seating capacity (e.g., 5)" 
+            required
+        >
+    
+        <label for="mileage">Mileage</label>
+        <input 
+            type="number" 
+            id="mileage" 
+            name="mileage" 
+            placeholder="Enter mileage (e.g., 25 MPG)" 
+            required
+        >
+    
+        <label for="price_per_day">Price Per Day</label>
+        <input 
+            type="number" 
+            id="price_per_day" 
+            name="price_per_day" 
+            placeholder="Enter rental price per day (e.g., 50)" 
+            required
+        >
+    
+        <label for="description">Description</label>
+        <textarea 
+            id="description" 
+            name="description" 
+            placeholder="Enter a brief description of the car"
+        ></textarea>
+    
+        <label for="image">Car Image</label>
+    
+        <button type="submit">Add Car</button>
+    </form>
+    
+</body>
+</html>
